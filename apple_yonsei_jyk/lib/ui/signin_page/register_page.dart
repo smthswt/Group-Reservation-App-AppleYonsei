@@ -31,6 +31,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final firestore = FirebaseFirestore.instance;
   late CheckboxController checkboxController1;
   late CheckboxController checkboxController2;
+  bool cardRegister = false;
 
   // text editing controllers
   final emailController = TextEditingController();
@@ -79,6 +80,7 @@ class _RegisterPageState extends State<RegisterPage> {
           'password' : passwordController.text,
           'userTypeCustomer' : checkboxController1.value,
           'userTypeEnterprise' : checkboxController2.value,
+          'cardRegister' : cardRegister,
         });
         print("User registered succesfully!");
 

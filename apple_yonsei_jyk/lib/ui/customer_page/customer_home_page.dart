@@ -5,7 +5,7 @@ import 'package:AppleYonsei/ui/bottom_bar/custom_bottom_bar.dart';
 import 'package:AppleYonsei/ui/explore_page/explore_page.dart';
 import 'package:AppleYonsei/ui/inbox_page/inbox_page.dart';
 import 'package:AppleYonsei/ui/login_page/login_page.dart';
-import 'package:AppleYonsei/ui/trips_page/trips_page.dart';
+import 'package:AppleYonsei/ui/group_reservation_page/group_reservation_page.dart';
 import 'package:AppleYonsei/ui/wishlist_page/wishlist_page.dart';
 
 class CustomerMyHomePage extends StatefulWidget {
@@ -66,8 +66,7 @@ class _CustomerMyHomePageState extends State<CustomerMyHomePage> with AfterLayou
         );
       case 2:
       default:
-        return const TripsPage(
-          isShrink: false,
+        return const GroupReservationPage(
         );
     }
   }

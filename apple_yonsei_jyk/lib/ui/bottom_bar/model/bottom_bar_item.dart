@@ -7,23 +7,23 @@ class BottomBarItem extends BaseModel {
       : super(label, assertPath + assetImage);
 
   static final BottomBarItem _explore = BottomBarItem._(
-    'Explore',
+    '식당탐색',
     'search_btn.png',
   );
   static final BottomBarItem _wishlist = BottomBarItem._(
-    'Wishlists',
+    '예약대기',
     'heart_icon.png',
   );
   static final BottomBarItem _trips = BottomBarItem._(
-    'Trips',
+    '예약하기',
     'airbnb_icon.png',
   );
   static final BottomBarItem _inbox = BottomBarItem._(
-    'Inbox',
+    '예약확정',
     'inbox_icon.png',
   );
   static final BottomBarItem _account = BottomBarItem._(
-    'Profile',
+    '계정',
     'account_icon.png',
   );
 

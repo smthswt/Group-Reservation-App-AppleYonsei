@@ -1,5 +1,6 @@
 import 'package:AppleYonsei/ui/login_page/login_page.dart';
 import 'package:AppleYonsei/ui/signin_page/auth_page.dart';
+import 'package:AppleYonsei/ui/signin_page/card_page.dart';
 import 'package:flutter/material.dart';
 import 'package:AppleYonsei/ui/customer_page/customer_home_page.dart';
 import 'package:AppleYonsei/ui/signin_page/signin_page.dart';
@@ -27,6 +28,7 @@ class AppleYonseiApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // routes: routes,
+      // home: CardPage(),
       home: AuthPage(),
       // home: const LoginPage(isShrink: false),
       // home: const MyHomePage(title: 'Apple Yonsei Group Reservation'),
