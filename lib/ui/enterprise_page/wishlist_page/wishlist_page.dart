@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:AppleYonsei/ui/enterprise_page/login_page/login_overlay_widget.dart';
-import 'package:AppleYonsei/ui/enterprise_page/common/animated_scale_screen_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-Future<String> getData() async {
-  var result = await FirebaseFirestore.instance
-      .collection('test_dave')
-      .doc('BjzUyw5qtolsytuiw6ZB')
-      .get();
-  print(result.data());
-  print('Firebase 데이터 가져오기 성공');
-
-  return result.data()?['date'] ?? '';
+Future<List<Map<String, dynamic>>> getData() async {
+  var result = await FirebaseFirestore.instance.collection('test_dave').get();
+  return result.docs
+      .where((doc) => doc['resv_confirm'] == true)
+      .map((doc) => doc.data() as Map<String, dynamic>)
+      .toList();
 }
 
 class WishlistPage extends StatefulWidget {
@@ -26,12 +22,12 @@ class WishlistPage extends StatefulWidget {
 }
 
 class _WishlistPageState extends State<WishlistPage> {
-  late Future<String> dateData;
+  late Future<List<Map<String, dynamic>>> getDataFuture;
 
   @override
   void initState() {
     super.initState();
-    dateData = getData();
+    getDataFuture = getData();
   }
 
   @override
@@ -42,17 +38,33 @@ class _WishlistPageState extends State<WishlistPage> {
           child: Column(
             children: [
               ReservText(),
-              ReservationSum(),
+              ReservationSum(dataFuture: getDataFuture),  // <-- Add this line
               ReservListText(),
-              FutureBuilder<String>(
-                future: dateData,
+              FutureBuilder<List<Map<String, dynamic>>>(
+                future: getDataFuture,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return CircularProgressIndicator();
                   } else if (snapshot.hasError) {
                     return Text('에러: ${snapshot.error}');
                   } else {
-                    return Reservationlist(dateData: snapshot.data ?? '');
+                    List<Widget> reservationWidgets = [];
+                    for (var data in snapshot.data!) {
+                      String dateData = data['date'] ?? '';
+                      String numPeople = data['num_people'].toString() ?? '';
+                      String name = data['name'].toString() ?? '';
+                      String phoneNum = data['phone_num'].toString() ?? '';
+
+                      reservationWidgets.add(
+                        Reservationlist(
+                          dateData: dateData,
+                          numPeople: numPeople,
+                          name: name,
+                          phoneNum: phoneNum,
+                        ),
+                      );
+                    }
+                    return Column(children: reservationWidgets);
                   }
                 },
               ),
@@ -66,8 +78,11 @@ class _WishlistPageState extends State<WishlistPage> {
 
 class Reservationlist extends StatelessWidget {
   final String dateData;
+  final String numPeople;
+  final String name;
+  final String phoneNum;
 
-  const Reservationlist({required this.dateData, Key? key}) : super(key: key);
+  const Reservationlist({required this.dateData, required this.numPeople, required this.name, required this.phoneNum, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -100,10 +115,10 @@ class Reservationlist extends StatelessWidget {
                       style: TextStyle(fontWeight: FontWeight.w700, letterSpacing: double.nan),
                     ),
                     Container(
-                      padding: EdgeInsets.all(3),
+                      padding: EdgeInsets.all(5),
                       decoration: BoxDecoration(
                         color: Colors.amber,
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(15),
                       ),
                       child: Text(
                         "예약 확정",
@@ -118,8 +133,8 @@ class Reservationlist extends StatelessWidget {
                 Container(
                   height: 8,
                 ),
-                Text("8 명 (예약 인원 수)"),
-                Text("김현호, 010-1234 (예약자 정보)"),
+                Text("$numPeople 명"),
+                Text("$name, $phoneNum"),
               ],
             ),
           )
@@ -130,36 +145,53 @@ class Reservationlist extends StatelessWidget {
 }
 
 class ReservationSum extends StatelessWidget {
-  const ReservationSum({Key? key}) : super(key: key);
+  final Future<List<Map<String, dynamic>>> dataFuture;
+
+  const ReservationSum({required this.dataFuture, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 300,
-      height: 50,
-      margin: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            flex: 1,
-            child: Container(
-              alignment: Alignment.center,
-              child: Text("11월 16일 (필터)"),
+    String currentDate = DateFormat('MM월 dd일').format(DateTime.now());
+
+    return FutureBuilder<List<Map<String, dynamic>>>(
+      future: dataFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          return Text('에러: ${snapshot.error}');
+        } else {
+          int currentDayReservations = snapshot.data?.length ?? 0;
+
+          return Container(
+            width: 300,
+            height: 50,
+            margin: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey),
             ),
-          ),
-          Container(width: 1, height: 30, color: Colors.grey,),
-          Expanded(
-            flex: 1,
-            child: Container(
-              alignment: Alignment.center,
-              child: Text("예약 확정: 3 팀"),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Text(currentDate),
+                  ),
+                ),
+                Container(width: 1, height: 30, color: Colors.grey,),
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Text("예약 확정: $currentDayReservations 팀"),
+                  ),
+                )
+              ],
             ),
-          )
-        ],
-      ),
+          );
+        }
+      },
     );
   }
 }
