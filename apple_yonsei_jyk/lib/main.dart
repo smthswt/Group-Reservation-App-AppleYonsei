@@ -1,4 +1,4 @@
-import 'package:AppleYonsei/ui/login_page/login_page.dart';
+import 'package:AppleYonsei/ui/login_page/profile_page.dart';
 import 'package:AppleYonsei/ui/signin_page/auth_page.dart';
 import 'package:AppleYonsei/ui/signin_page/card_page.dart';
 import 'package:flutter/material.dart';

@@ -5,8 +5,9 @@ import 'package:AppleYonsei/ui/enterprise_page/explore_page/explore_page.dart';
 import 'package:AppleYonsei/ui/enterprise_page/wishlist_page/wishlist_page.dart';
 import 'package:AppleYonsei/ui/enterprise_page/inbox_page/inbox_page.dart';
 import 'package:AppleYonsei/ui/enterprise_page/login_page/login_page.dart';
-import 'package:AppleYonsei/ui/enterprise_page/trips_page/trips_page.dart';
 import 'package:AppleYonsei/ui/enterprise_page/bottom_bar/custom_bottom_bar.dart';
+
+import 'dashboard_page/trips_page.dart';
 
 class EnterpriseMyHomePage extends StatefulWidget {
   const EnterpriseMyHomePage({Key? key, required this.title}) : super(key: key);
@@ -57,12 +58,12 @@ class _EnterpriseMyHomePageState extends State<EnterpriseMyHomePage> with AfterL
           isShrink: false,
         );
       case 3:
-        return const LoginPage(
+        return const ProfilePage(
           isShrink: false,
         );
       case 2:
       default:
-        return const TripsPage(
+        return const DashboardPage(
           isShrink: false,
         );
     }

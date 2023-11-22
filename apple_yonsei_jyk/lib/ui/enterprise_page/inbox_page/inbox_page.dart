@@ -68,7 +68,7 @@ class _InboxPageState extends AnimatedScaleScreenWidget<InboxPage> {
                     ),
                   ),
                   const Text(
-                    "Log in to see messages",
+                    "ssssss",
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 24.0,

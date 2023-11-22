@@ -1,3 +1,4 @@
+import 'package:AppleYonsei/ui/group_reservation_page/model/reservation_completed_page.dart';
 import 'package:flutter/material.dart';
 import 'package:AppleYonsei/ui/common/animated_scale_screen_widget.dart';
 import 'package:AppleYonsei/ui/login_page/login_overlay_widget.dart';
@@ -8,7 +9,7 @@ const List<String> locationlist = ['신촌', '안암'];
 const List<String> personlist = ['4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14','15','16','17'];
 const List<String> timelist = ['16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00'];
 const List<String> pmenulist = ['치킨', '피자', '햄버거', '삼겹살', '국밥', '면류'];
-const List<String> nmenulist = ['치킨', '피자', '햄버거', '삼겹살', '국밥', '면류'];
+const List<String> nmenulist = ['피자', '치킨','햄버거', '삼겹살', '국밥', '면류'];
 
 class GroupReservationPage extends StatefulWidget {
   const GroupReservationPage({Key? key}) : super(key: key);
@@ -23,6 +24,9 @@ class _GroupReservationPageState extends AnimatedScaleScreenWidget<GroupReservat
   String selectedTime = '16:00';
   String selectedPreferredMenu = '치킨';
   String selectedNonPreferredMenu = '피자';
+  bool pending = false;
+  bool reservation_status = false;
+
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final user = FirebaseAuth.instance.currentUser!;
@@ -31,13 +35,15 @@ class _GroupReservationPageState extends AnimatedScaleScreenWidget<GroupReservat
   void ReservationRegister() async{
 
     try{
-      await FirebaseFirestore.instance.collection('reservation').doc().set({
+      await FirebaseFirestore.instance.collection('reservation_waiting').doc().set({
         "user" : user.email,
         "location" : selectedLocation,
         "person" : selectedPerson,
         "time" : selectedTime,
         "prefer" : selectedPreferredMenu,
         "unprefer" : selectedNonPreferredMenu,
+        "pending" : pending,
+        "reservation_status" : reservation_status,
       });
 
     } catch (e){
@@ -119,7 +125,7 @@ class _GroupReservationPageState extends AnimatedScaleScreenWidget<GroupReservat
               ),
               SizedBox(height: 50,),
               ElevatedButton(onPressed: () {
-
+                ReservationCompletedPage();
                 // Access the selected values here
                 print(user.email);
                 print('Selected Location: $selectedLocation');
@@ -127,8 +133,16 @@ class _GroupReservationPageState extends AnimatedScaleScreenWidget<GroupReservat
                 print('Selected Time: $selectedTime');
                 print('Selected Preferred Menu: $selectedPreferredMenu');
                 print('Selected Non-Preferred Menu: $selectedNonPreferredMenu');
+                print('pending status :  $pending');
+                print('reservation status : $reservation_status');
                 // You can use these values for further processing or send them to a function.
                 ReservationRegister();
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ReservationCompletedPage(),
+                  ),
+                );
               },
                   child: Text("예약하기"),
                   style: ButtonStyle(

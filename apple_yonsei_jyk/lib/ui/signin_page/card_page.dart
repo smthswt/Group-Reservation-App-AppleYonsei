@@ -65,7 +65,6 @@ class _MyWidget159State extends State<MyWidget159> {
         'cardRegister' : cardRegister,
       });
       print("User registered succesfully!");
-
     }
 
 

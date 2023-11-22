@@ -62,6 +62,8 @@ class _SigninPageState extends State<SigninPage> {
         email: emailController.text,
         password: passwordController.text,
       );
+      // print("HELLO WORLD---------------------");
+      // print(emailController.text);
       // Fetch user information from Firestore based on email
       var querySnapshot = await FirebaseFirestore.instance.collection("users").where("email", isEqualTo: emailController.text).get();
 

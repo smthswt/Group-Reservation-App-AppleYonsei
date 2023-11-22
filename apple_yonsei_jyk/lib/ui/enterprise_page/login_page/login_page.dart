@@ -1,24 +1,36 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:AppleYonsei/ui/enterprise_page/common/animated_scale_screen_widget.dart';
 import 'package:AppleYonsei/ui/enterprise_page/login_page/login_overlay_widget.dart';
 import 'package:AppleYonsei/ui/enterprise_page/login_page/model/extra_info_item.dart';
 
-class LoginPage extends StatefulWidget {
+class ProfilePage extends StatefulWidget {
   final bool isShrink;
 
-  const LoginPage({Key? key, required this.isShrink}) : super(key: key);
+  const ProfilePage({Key? key, required this.isShrink}) : super(key: key);
 
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _ProfilePageState createState() => _ProfilePageState();
 }
 
-class _LoginPageState extends AnimatedScaleScreenWidget<LoginPage> {
+class _ProfilePageState extends AnimatedScaleScreenWidget<ProfilePage> {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
   void signUserOut(){
     FirebaseAuth.instance.signOut();
   }
   final user = FirebaseAuth.instance.currentUser!;
+
+  void enterpriseDataCall() async {
+    UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: emailController.text,
+      password: passwordController.text,
+    );
+  }
+
 
   bool goToOtherPage = true;
   bool _showOverlay = false;
@@ -68,6 +80,7 @@ class _LoginPageState extends AnimatedScaleScreenWidget<LoginPage> {
                   const SizedBox(
                     height: 10,
                   ),
+
                   // const Text(
                   //   "Sign Out",
                   //   style: TextStyle(
