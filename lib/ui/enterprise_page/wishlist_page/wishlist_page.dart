@@ -8,7 +8,7 @@ Future<List<Map<String, dynamic>>> getData() async {
   var result = await FirebaseFirestore.instance.collection('test_dave').get();
   return result.docs
       .where((doc) => doc['resv_confirm'] == true)
-      .map((doc) => doc.data() as Map<String, dynamic>)
+      .map((doc) => doc.data())
       .toList();
 }
 
@@ -34,7 +34,8 @@ class _WishlistPageState extends State<WishlistPage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: Center(
+        body: SingleChildScrollView(
+        child: Center(
           child: Column(
             children: [
               ReservText(),
@@ -54,6 +55,7 @@ class _WishlistPageState extends State<WishlistPage> {
                       String numPeople = data['num_people'].toString() ?? '';
                       String name = data['name'].toString() ?? '';
                       String phoneNum = data['phone_num'].toString() ?? '';
+                      String resvTime = data['resv_time'].toString() ?? '';
 
                       reservationWidgets.add(
                         Reservationlist(
@@ -61,6 +63,7 @@ class _WishlistPageState extends State<WishlistPage> {
                           numPeople: numPeople,
                           name: name,
                           phoneNum: phoneNum,
+                          resvTime: resvTime,
                         ),
                       );
                     }
@@ -70,6 +73,7 @@ class _WishlistPageState extends State<WishlistPage> {
               ),
             ],
           ),
+        ),
         ),
       ),
     );
@@ -81,11 +85,40 @@ class Reservationlist extends StatelessWidget {
   final String numPeople;
   final String name;
   final String phoneNum;
+  final String resvTime;
 
-  const Reservationlist({required this.dateData, required this.numPeople, required this.name, required this.phoneNum, Key? key}) : super(key: key);
+  const Reservationlist({required this.dateData, required this.numPeople, required this.name, required this.phoneNum, required this.resvTime, Key? key}) : super(key: key);
+
+  String getDayOfWeek(String date) {
+    try {
+    final DateTime dateTime = DateTime.parse(date);
+    switch (dateTime.weekday) {
+      case 1:
+        return '월';
+      case 2:
+        return '화';
+      case 3:
+        return '수';
+      case 4:
+        return '목';
+      case 5:
+        return '금';
+      case 6:
+        return '토';
+      case 7:
+        return '일';
+      default:
+        return '';
+    }
+  } catch (e) {
+      print('Invalid date format: $date');
+      return '';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
       alignment: Alignment.topCenter,
       height: 100,
@@ -111,10 +144,11 @@ class Reservationlist extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      dateData,
+                      "$dateData $resvTime",
                       style: TextStyle(fontWeight: FontWeight.w700, letterSpacing: double.nan),
                     ),
                     Container(
+                      margin: EdgeInsets.fromLTRB(1, 0, 3, 0),
                       padding: EdgeInsets.all(5),
                       decoration: BoxDecoration(
                         color: Colors.amber,
@@ -131,7 +165,7 @@ class Reservationlist extends StatelessWidget {
                   ],
                 ),
                 Container(
-                  height: 8,
+                  height: 4,
                 ),
                 Text("$numPeople 명"),
                 Text("$name, $phoneNum"),
@@ -151,7 +185,7 @@ class ReservationSum extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String currentDate = DateFormat('MM월 dd일').format(DateTime.now());
+    String currentDate = DateFormat('yyyy년 MM월 dd일').format(DateTime.now());
 
     return FutureBuilder<List<Map<String, dynamic>>>(
       future: dataFuture,
