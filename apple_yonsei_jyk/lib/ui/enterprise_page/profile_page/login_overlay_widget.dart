@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:AppleYonsei/ui/enterprise_page/login_page/model/auth_item.dart';
+import 'package:AppleYonsei/ui/enterprise_page/profile_page/model/auth_item.dart';
 
 Future<void> showLoginOverlay({
   required BuildContext context,

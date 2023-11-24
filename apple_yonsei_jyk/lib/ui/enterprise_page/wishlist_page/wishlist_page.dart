@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:AppleYonsei/ui/enterprise_page/login_page/login_overlay_widget.dart';
+import 'package:AppleYonsei/ui/enterprise_page/profile_page/login_overlay_widget.dart';
 import 'package:AppleYonsei/ui/enterprise_page/common/animated_scale_screen_widget.dart';
 
 class WishlistPage extends StatefulWidget {

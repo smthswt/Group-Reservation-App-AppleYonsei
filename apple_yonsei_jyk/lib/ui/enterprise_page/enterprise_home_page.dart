@@ -4,10 +4,10 @@ import 'package:after_layout/after_layout.dart';
 import 'package:AppleYonsei/ui/enterprise_page/explore_page/explore_page.dart';
 import 'package:AppleYonsei/ui/enterprise_page/wishlist_page/wishlist_page.dart';
 import 'package:AppleYonsei/ui/enterprise_page/inbox_page/inbox_page.dart';
-import 'package:AppleYonsei/ui/enterprise_page/login_page/login_page.dart';
+import 'package:AppleYonsei/ui/enterprise_page/profile_page/profile_page.dart';
 import 'package:AppleYonsei/ui/enterprise_page/bottom_bar/custom_bottom_bar.dart';
 
-import 'dashboard_page/trips_page.dart';
+import 'dashboard_page/dashboard_page.dart';
 
 class EnterpriseMyHomePage extends StatefulWidget {
   const EnterpriseMyHomePage({Key? key, required this.title}) : super(key: key);

@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:AppleYonsei/ui/enterprise_page/common/animated_scale_screen_widget.dart';
-import 'package:AppleYonsei/ui/enterprise_page/login_page/login_overlay_widget.dart';
-import 'package:AppleYonsei/ui/enterprise_page/login_page/model/extra_info_item.dart';
+import 'package:AppleYonsei/ui/enterprise_page/profile_page/login_overlay_widget.dart';
+import 'package:AppleYonsei/ui/enterprise_page/profile_page/model/extra_info_item.dart';
 
 class ProfilePage extends StatefulWidget {
   final bool isShrink;

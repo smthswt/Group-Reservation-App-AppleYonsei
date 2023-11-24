@@ -7,7 +7,7 @@ import 'package:AppleYonsei/ui/enterprise_page/explore_page/host_overlay_widget/
 import 'package:AppleYonsei/ui/enterprise_page/explore_page/host_overlay_widget/overlay_close_btn.dart';
 import 'package:AppleYonsei/ui/enterprise_page/explore_page/host_overlay_widget/try_host_display_widget.dart';
 import 'package:AppleYonsei/ui/enterprise_page/explore_page/model/demonstration_model.dart';
-import 'package:AppleYonsei/ui/enterprise_page/login_page/login_overlay_widget.dart';
+import 'package:AppleYonsei/ui/enterprise_page/profile_page/login_overlay_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

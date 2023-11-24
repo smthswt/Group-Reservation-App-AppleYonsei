@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:AppleYonsei/ui/enterprise_page/login_page/animated_scale_btn_widget/animated_scale_widget.dart';
+import 'package:AppleYonsei/ui/enterprise_page/profile_page/animated_scale_btn_widget/animated_scale_widget.dart';
 
 class AnimatedScaleBtn extends StatefulWidget {
   final String title;

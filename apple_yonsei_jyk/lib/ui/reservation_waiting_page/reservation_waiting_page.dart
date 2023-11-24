@@ -150,7 +150,7 @@ class _ReservationWaitingPageState extends State<ReservationWaitingPage> {
     String userEmail = result['email'];
     print(userEmail);
     //예약확정 내역 데이터 불러오기
-    var snapshot = await FirebaseFirestore.instance.collection('reservation_confirm').get();
+    var snapshot = await FirebaseFirestore.instance.collection('reservation_customer_confirm').get();
     var documents = snapshot.docs;
 
 
