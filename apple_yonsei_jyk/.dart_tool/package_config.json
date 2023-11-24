@@ -158,6 +158,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "intl",
+      "rootUri": "file:///Users/juyoungkim/.pub-cache/hosted/pub.dev/intl-0.17.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "js",
       "rootUri": "file:///Users/juyoungkim/.pub-cache/hosted/pub.dev/js-0.6.7",
       "packageUri": "lib/",
@@ -296,7 +302,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2023-11-23T23:08:12.042783Z",
+  "generated": "2023-11-24T01:54:48.876758Z",
   "generator": "pub",
   "generatorVersion": "3.2.0-210.4.beta"
 }
