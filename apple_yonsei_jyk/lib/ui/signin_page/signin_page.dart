@@ -158,7 +158,7 @@ class _SigninPageState extends State<SigninPage> {
                 // welcome back, you've been missed!
                 Center(
                   child: Text(
-                    'One Click 단체 예약! \n Apple Yonsei에 오신 것을 환영합니다 :)',
+                    'Hello //One Click 단체 예약! \n Apple Yonsei에 오신 것을 환영합니다 :)',
                     style: TextStyle(
                       color: Colors.grey[700],
                       fontSize: 16,

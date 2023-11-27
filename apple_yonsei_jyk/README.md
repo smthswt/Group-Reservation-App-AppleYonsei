@@ -1,3 +1,1 @@
-yonsei apple
-
-newstart
+Yonsei Applied Information Major Capstone Design "Group Reservation Application"
